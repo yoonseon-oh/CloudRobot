@@ -1,0 +1,642 @@
+Vertex
+	name 1001
+	type 0
+	pos 149.87 0 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 20 1 0
+	edge2 1 1 0
+	edge2 42 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1002
+	type 0
+	pos 151.18 0 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 0 1 0
+	edge2 2 1 0
+	edge2 24 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1003
+	type 0
+	pos 152.7 0 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 1 1 0
+	edge2 3 1 0
+	edge2 22 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1004
+	type 0
+	pos 154.24 0 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 2 1 0
+	edge2 4 1 0
+	edge2 23 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1005
+	type 0
+	pos 155.6 4.76837e-07 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 3 1 0
+	edge2 21 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1006
+	type 0
+	pos 149.77 0 150.41
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 25 1 0
+	edge2 6 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1007
+	type 0
+	pos 151.08 0 150.41
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 29 1 0
+	edge2 7 1 0
+	edge2 5 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1008
+	type 0
+	pos 152.59 0 150.41
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 27 1 0
+	edge2 8 1 0
+	edge2 6 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1009
+	type 0
+	pos 154.14 0 150.41
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 28 1 0
+	edge2 9 1 0
+	edge2 7 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1010
+	type 0
+	pos 155.5 0 150.41
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 26 1 0
+	edge2 8 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1011
+	type 0
+	pos 149.77 0 149.61
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 11 1 0
+	edge2 30 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1012
+	type 0
+	pos 151.08 0 149.61
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 10 1 0
+	edge2 12 1 0
+	edge2 34 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1013
+	type 0
+	pos 152.59 0 149.61
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 11 1 0
+	edge2 13 1 0
+	edge2 32 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1014
+	type 0
+	pos 154.14 0 149.61
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 12 1 0
+	edge2 14 1 0
+	edge2 33 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1015
+	type 0
+	pos 155.5 0 149.61
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 13 1 0
+	edge2 31 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1016
+	type 0
+	pos 149.6 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 16 1 0
+	edge2 35 1 0
+	edge2 45 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1017
+	type 0
+	pos 150.94 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 15 1 0
+	edge2 17 1 0
+	edge2 39 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1018
+	type 0
+	pos 152.43 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 16 1 0
+	edge2 18 1 0
+	edge2 37 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1019
+	type 0
+	pos 153.98 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 17 1 0
+	edge2 19 1 0
+	edge2 38 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1020
+	type 0
+	pos 155.33 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 18 1 0
+	edge2 36 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 1
+	type 1
+	pos 149.86 0 154.22
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 0 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 5
+	type 1
+	pos 155.6 0 154.12
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 4 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 3
+	type 1
+	pos 152.65 0 154.2
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 2 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 4
+	type 1
+	pos 154.24 0 154.17
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 3 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 2
+	type 1
+	pos 151.17 0 154.22
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 1 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 6
+	type 1
+	pos 149.77 0 151.46
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 5 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 10
+	type 1
+	pos 155.5 0 151.46
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 9 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 8
+	type 1
+	pos 152.59 0 151.46
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 7 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 9
+	type 1
+	pos 154.1 0 151.46
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 8 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 7
+	type 1
+	pos 151.08 0 151.46
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 6 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 11
+	type 1
+	pos 149.79 0 148.66
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 10 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 15
+	type 1
+	pos 155.45 0 148.66
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 14 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 13
+	type 1
+	pos 152.54 0 148.66
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 12 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 14
+	type 1
+	pos 154.1 0 148.66
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 13 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 12
+	type 1
+	pos 151.08 0 148.66
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 11 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 16
+	type 1
+	pos 149.6 0 145.9
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 15 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 20
+	type 1
+	pos 155.33 0 145.9
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 19 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 18
+	type 1
+	pos 152.43 0 145.9
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 17 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 19
+	type 1
+	pos 153.98 0 145.9
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 18 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 17
+	type 1
+	pos 150.94 0 145.9
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 16 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 201
+	type 0
+	pos 143.16 0 152.92
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 41 1 0
+	edge2 48 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 202
+	type 0
+	pos 146.32 0 152.92
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 42 1 0
+	edge2 40 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 203
+	type 3
+	pos 146.32 -9.53674e-07 155.19
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 0 1 0
+	edge2 46 1 0
+	edge2 41 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 301
+	type 0
+	pos 143.07 9.53674e-07 147.71
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 44 1 0
+	edge2 49 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 302
+	type 0
+	pos 146.32 0 147.75
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 45 1 0
+	edge2 43 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 303
+	type 0
+	pos 146.32 0 144.94
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 44 1 0
+	edge2 15 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 51
+	type 0
+	pos 144.16 0 156.43
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 42 1 0
+	edge2 47 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 50
+	type 2
+	pos 142.16 0 156.43
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 46 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 21
+	type 1
+	pos 143.16 -9.53674e-07 151.8
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 40 1 0
+	data -1 -1 -1 -1 
+Vertex
+	name 31
+	type 1
+	pos 143.05 0 148.89
+	bypassable 1
+	adjacentCheckable 1
+	checkAdjacentLength 0
+	guideId 0
+	doorId 0
+	speed 0
+	edge2 43 1 0
+	data -1 -1 -1 -1 
