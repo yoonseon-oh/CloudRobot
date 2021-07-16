@@ -1,5 +1,5 @@
 import sys, os, io
-
+# MapMOS class has a static map given by MOS
 class MapMOS:
     def __init__(self,mapfile):
         # initialize variables
