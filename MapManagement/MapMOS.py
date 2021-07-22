@@ -1,4 +1,6 @@
 import sys, os, io
+import matplotlib.pyplot as plt
+
 # MapMOS class has a static map given by MOS
 class MapMOS:
     def __init__(self,mapfile):
@@ -55,11 +57,29 @@ class MapMOS:
                 edges.append(lines[lnum].split(" ")[1].split('\n')[0])
                 lnum = lnum + 1
 
+        self.VertexNames.append(vname)
+        self.VertexType[vname] = type
+        self.VertexPos[vname] = pos
+        self.Edge[vname] = edges
+
         f.close()
 
+    def draw_map(self):
+        color_list = ['blue','green','red'] #(0:move, 1: station, 2: charging)
+        for vertex, val in self.VertexPos.items():
+
+            plt.plot(val[0],val[2],'o',color=color_list[int(self.VertexType[vertex])])
+
+        for vertex, edges in self.Edge.items():
+            for v in edges:
+                plt.plot([self.VertexPos[vertex][0],self.VertexPos[v][0]], [self.VertexPos[vertex][2],self.VertexPos[v][2]],'b')
+
+        plt.pause(10)
 
 
 if __name__=="__main__":
     map = MapMOS("../data/map_cloud.txt")
     print("done")
+    map.draw_map()
+
 
