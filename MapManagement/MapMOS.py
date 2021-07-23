@@ -8,7 +8,7 @@ class MapMOS:
 
         self.VertexNames = []
         self.VertexType = {} # vertex_name: type (0:move, 1: station, 2: charging)
-        self.VertexPos = {} # vertex_name: pos [x,y,z]
+        self.VertexPos = {} # vertex_name: pos [x,y,z] --> [x,z]
         self.Edge = {} # vertex_name: [vertex_name, vertex_name, vertex_name]
 
         self.EdgeMove = {} # A robot can move by a moving function
@@ -42,7 +42,7 @@ class MapMOS:
                 lnum = lnum + 1
 
             if 'name' in lines[lnum]:
-                vname = lines[lnum].split(" ")[1].split('\n')[0]
+                vname = int(lines[lnum].split(" ")[1].split('\n')[0])
                 lnum = lnum +1
 
             if 'type' in lines[lnum]:
@@ -54,7 +54,7 @@ class MapMOS:
                 lnum = lnum+1
 
             if 'edge' in lines[lnum]:
-                edges.append(lines[lnum].split(" ")[1].split('\n')[0])
+                edges.append(int(lines[lnum].split(" ")[1].split('\n')[0]))
                 lnum = lnum + 1
 
         self.VertexNames.append(vname)
@@ -74,7 +74,8 @@ class MapMOS:
             for v in edges:
                 plt.plot([self.VertexPos[vertex][0],self.VertexPos[v][0]], [self.VertexPos[vertex][2],self.VertexPos[v][2]],'b')
 
-        plt.pause(10)
+        #plt.pause(10)
+
 
 
 if __name__=="__main__":
