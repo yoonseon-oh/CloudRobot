@@ -33,18 +33,19 @@ class MapCloudlet:
         self.DOOR = {}
 
         # save plan
-        self.Plan_AMR_LIFT = {}  # save AMR-LIFT's plan
-        self.Plan_AMR_TOW = {}  # save AMR-TOW's plan
+        self.Path_AMR_LIFT = {}  # save AMR-LIFT's plan
+        self.Path_AMR_TOW = {}  # save AMR-TOW's plan
 
         # initialize agian
         for id, val in robot_init.items():
             if id in self.AMR_LIFT_IDs:
                 self.AMR_LIFT[id]= {'timestamp': [t_init], 'pos': [val], 'vertex' : [self.convert_pose_to_vertex(val)],
                                                                                 'load':[0], 'load_id':[[-1,-1]]}
+                self.Path_AMR_LIFT[id] = []
             elif id in self.AMR_TOW_IDs:
                 self.AMR_TOW[id]= {'timestamp': [t_init], 'pos': [val], 'vertex' : [self.convert_pose_to_vertex(val)],
                                                                                 'load':[0], 'load_id':[[-1,-1]]}
-
+                self.Path_AMR_TOW[id] = []
 
     def update_MOS_robot_info(self, info): # call this function when robot_information is updated by MOS
 
@@ -171,11 +172,12 @@ class MapCloudlet:
             self.DOOR['status'].append(info.status)
 
     def update_NAV_info(self, info_plan): #call when the navigation module generate a new path for a robot #TODO: Check
+        #TODO: Path 가 실행된 정도를 봐서 남은 path를 update해야하는구나
         if info_plan.id in self.AMR_LIFT_IDs:
-            self.Plan_AMR_LIFT[info_plan.id] = info_plan.plan
+            self.Path_AMR_LIFT[info_plan.id] = info_plan.plan
 
         elif info_plan.id in self.AMR_TOW_IDs:
-            self.Plan_AMR_TOW[info_plan.id] = info_plan.plan
+            self.Path_AMR_TOW[info_plan.id] = info_plan.plan
 
     def call_LIFT(self, info): # call if a human calls AMR-LIFT
         # ADD cargo and rack id
