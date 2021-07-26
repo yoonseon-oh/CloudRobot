@@ -7,7 +7,7 @@ class RobotSim:
     def __init__(self, id, x,y, static_map):
 
         self.VEL = 0.800  # m
-        self.NOISE_SIG = 0.05 # m
+        self.NOISE_SIG = 0.0 # m
         self.T_LOAD = 1 # sec
         self.T_UNLOAD = 1 # sec
 
@@ -51,9 +51,11 @@ class RobotSim:
                     self.x, self.y, t = self.move_to_node(self.x, self.y, self.plan[1][0], t)
                     if t > 0:
                         self.plan[1].pop(0)
+
                     if self.plan[1] == []:
                         self.plan = []
                         self.status = 'done'
+
             elif self.plan[0] == 'load':
                 print(self.t_req_load)
                 if self.t_req_load > self.T_LOAD:

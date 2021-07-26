@@ -43,6 +43,15 @@ def draw(map, smap, robots):
     draw_set_s = {'AMRLIFT0': 'bo', 'AMRLIFT1': 'ro', 'AMRTOW0': 'b^', 'AMRTOW1': 'r^'}
 
     plt.cla()
+    # draw the plan
+    for rid, path in smap.Path_AMR_TOW.items():
+        x, y = path_to_pos(path=path, map = map)
+        plt.plot(x, y, 'y', linewidth= 5)
+
+    for rid, path in smap.Path_AMR_LIFT.items():
+        x, y = path_to_pos(path=path, map=map)
+        plt.plot(x, y, 'y', linewidth=5)
+
     map.draw_map()
     for rid, robot in robots.items():
         # draw true value
@@ -51,10 +60,10 @@ def draw(map, smap, robots):
         # draw the semantic map
         if rid in AMR_LIFT_IDs:
             plt.plot(smap.AMR_LIFT[rid]['pos'][-1][0],smap.AMR_LIFT[rid]['pos'][-1][1], draw_set_s[rid], markersize=8)
-            #print('smap: ',rid, smap.AMR_LIFT[rid]['pos'][-1][0],smap.AMR_LIFT[rid]['pos'][-1][1])
+            print("RobotVertex: ", rid, smap.AMR_LIFT[rid]['vertex'][-1])
         elif rid in AMR_TOW_IDs:
             plt.plot(smap.AMR_TOW[rid]['pos'][-1][0], smap.AMR_TOW[rid]['pos'][-1][1], draw_set_s[rid], markersize=8)
-            #print('smap: ', rid, smap.AMR_TOW[rid]['pos'][-1][0], smap.AMR_TOW[rid]['pos'][-1][1])
+            print("RobotVertex: ", rid, smap.AMR_TOW[rid]['vertex'][-1])
 
 
     for id, val in smap.RACK_TOW.items():
@@ -73,6 +82,14 @@ def get_callinfo(t, vertex):
     info.vertex = [vertex, vertex]
     info.timestamp = t
     return info
+
+def path_to_pos(path, map): # path: the sequence of vertexes
+    x = []
+    y = []
+    for v in path:
+        x.append(map.VertexPos[v][0])
+        y.append(map.VertexPos[v][2])
+    return x, y
 
 # Initialize
 smap = MapCloudlet(map_file,AMR_TOW_init = AMR_TOW_init, AMR_LIFT_init=AMR_LIFT_init,
@@ -100,6 +117,9 @@ while FLAG_RUN:
         if plan !=[]:
             if robots[rid].plan == [] and plan[0][0] !='call': # if empty, insert plan and not call
                 robots[rid].insert_plan(plan[0])
+                if plan[0][0] == 'move': # allocate the plan
+                    smap.insert_NAV_PLAN(rid,plan[0][1].copy())
+                    #print("insert: NavPlan")
                 RobotPlan[rid].pop(0)
                 flag_terminate = False
 
@@ -117,6 +137,7 @@ while FLAG_RUN:
         #print(key, robots[key].plan)
         robots[key].print_data()
         robots[key].execute_plan(T_DEL) # execute
+        robots[key].print_data()
 
         if robots[key].status == 'done':
             robots[key].status = 'none'

@@ -178,6 +178,8 @@ class MapCloudlet:
                 else:
                     self.AMR_TOW[info.id]['load_id'].append([-1, -1])
 
+        self.update_NAV_PLAN(info.id)
+
     def robot_update_rule(self, robot, info): # define the update rule of robot status: return true to update
         return info.vertex != robot[info.id]['vertex'][-1] or info.load != robot[info.id]['load'] # or info.status!= robot[info.id]['status'][-1]
 
@@ -185,14 +187,6 @@ class MapCloudlet:
         if info.status != self.DOOR['status']:
             self.DOOR['timestamp'].append(info.timestamp)
             self.DOOR['status'].append(info.status)
-
-    def update_NAV_info(self, info_plan): #call when the navigation module generate a new path for a robot #TODO: Check
-        #TODO: Path 가 실행된 정도를 봐서 남은 path를 update해야하는구나
-        if info_plan.id in self.AMR_LIFT_IDs:
-            self.Path_AMR_LIFT[info_plan.id] = info_plan.plan
-
-        elif info_plan.id in self.AMR_TOW_IDs:
-            self.Path_AMR_TOW[info_plan.id] = info_plan.plan
 
     def call_LIFT(self, info): # call if a human calls AMR-LIFT
         # ADD cargo and rack id
@@ -303,24 +297,51 @@ class MapCloudlet:
         self.RACK_TOW[new_rack_id] = {'timestamp': [timestamp], 'pos': [[self.static_map.VertexPos[vertex][0],self.static_map.VertexPos[vertex][2]]], 'vertex': [[vertex, vertex]],
                                        'load_id': [[-1, -1]]}
 
+    def insert_NAV_PLAN(self, amr_id, path): # Call when a new path is allocated
+        if amr_id in self.AMR_LIFT_IDs:
+            self.Path_AMR_LIFT[amr_id] = path
+
+        elif amr_id in self.AMR_TOW_IDs:
+            self.Path_AMR_TOW[amr_id] = path
+
+    def update_NAV_PLAN(self, amr_id): # Update the path that the robot should follow TODO: 지나가도 할 수 있게
+        if amr_id in self.AMR_LIFT_IDs:
+            if len(self.Path_AMR_LIFT[amr_id]) !=0:
+                compare_nodes = [[self.Path_AMR_LIFT[amr_id][0]]*2]
+                if len(self.Path_AMR_LIFT[amr_id])>1:
+                    compare_nodes.append(self.Path_AMR_LIFT[amr_id][0:1])
+                    compare_nodes.append([self.Path_AMR_LIFT[amr_id][1],self.Path_AMR_LIFT[amr_id][0]])
+                if self.AMR_LIFT[amr_id]['vertex'][-1] in compare_nodes:
+                    self.Path_AMR_LIFT[amr_id].pop(0)
+        elif amr_id in self.AMR_TOW_IDs:
+            if len(self.Path_AMR_TOW[amr_id]) !=0:
+                compare_nodes = [[self.Path_AMR_TOW[amr_id][0]] * 2]
+                if len(self.Path_AMR_TOW[amr_id]) > 1:
+                    compare_nodes.append(self.Path_AMR_TOW[amr_id][0:1])
+                    compare_nodes.append([self.Path_AMR_TOW[amr_id][1],self.Path_AMR_TOW[amr_id][0]])
+                if self.AMR_TOW[amr_id]['vertex'][-1] in compare_nodes:
+                    self.Path_AMR_TOW[amr_id].pop(0)
+
     def convert_pose_to_vertex(self, pose):
         # return two closest vertex from pose, the distance should be less than threshold
-        th = 0.1
-        min_dist = [np.inf, np.inf]
-        min_id =[-1, -1]
+        th = 0.5
+        dist_set = []
+        id_set = []
         for id, ver_pose in self.static_map.VertexPos.items():
-            # compute distance
-            dist_sq = (ver_pose[0]-pose[0])**2 + (ver_pose[2]-pose[1])**2
-            if dist_sq < th**2:
-                return [id, id]
-            if dist_sq < min_dist[0]:
-                min_dist[0] = dist_sq
-                min_id[0] = id
-            elif dist_sq < min_dist[1]:
-                min_dist[1] = dist_sq
-                min_id[1] = id
+            id_set.append(id)
+            dist_set.append((ver_pose[0]-pose[0])**2 + (ver_pose[2]-pose[1])**2)
 
-        return min_id
+        min_dist = min(dist_set)
+        min_id = id_set[dist_set.index(min_dist)]
+
+        if min_dist < th ** 2:
+            return [min_id, min_id]
+        else:
+            # parts of dist_set: extract distance from neighbor vertices
+            id_set2 = self.static_map.Edge[min_id]
+            dist_set2 = [dist_set[id_set2.index(id)] for id in id_set2]
+            min_dist2 = min(dist_set2)
+            min_id2 = id_set2[dist_set2.index(min_dist2)]
 
     def search_obj_at_vertex(self, objlist, v): # objlist: AMR_LIFT, AMR_TOW, ...
         objs = []
