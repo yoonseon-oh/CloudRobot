@@ -309,7 +309,7 @@ class MapCloudlet:
             if len(self.Path_AMR_LIFT[amr_id]) !=0:
                 compare_nodes = [[self.Path_AMR_LIFT[amr_id][0]]*2]
                 if len(self.Path_AMR_LIFT[amr_id])>1:
-                    compare_nodes.append(self.Path_AMR_LIFT[amr_id][0:1])
+                    compare_nodes.append(self.Path_AMR_LIFT[amr_id][0:2])
                     compare_nodes.append([self.Path_AMR_LIFT[amr_id][1],self.Path_AMR_LIFT[amr_id][0]])
                 if self.AMR_LIFT[amr_id]['vertex'][-1] in compare_nodes:
                     self.Path_AMR_LIFT[amr_id].pop(0)
@@ -317,14 +317,14 @@ class MapCloudlet:
             if len(self.Path_AMR_TOW[amr_id]) !=0:
                 compare_nodes = [[self.Path_AMR_TOW[amr_id][0]] * 2]
                 if len(self.Path_AMR_TOW[amr_id]) > 1:
-                    compare_nodes.append(self.Path_AMR_TOW[amr_id][0:1])
+                    compare_nodes.append(self.Path_AMR_TOW[amr_id][0:2])
                     compare_nodes.append([self.Path_AMR_TOW[amr_id][1],self.Path_AMR_TOW[amr_id][0]])
                 if self.AMR_TOW[amr_id]['vertex'][-1] in compare_nodes:
                     self.Path_AMR_TOW[amr_id].pop(0)
 
     def convert_pose_to_vertex(self, pose):
         # return two closest vertex from pose, the distance should be less than threshold
-        th = 0.5
+        th = 0.3
         dist_set = []
         id_set = []
         for id, ver_pose in self.static_map.VertexPos.items():
@@ -342,6 +342,7 @@ class MapCloudlet:
             dist_set2 = [dist_set[id_set2.index(id)] for id in id_set2]
             min_dist2 = min(dist_set2)
             min_id2 = id_set2[dist_set2.index(min_dist2)]
+            return [min_id, min_id2]
 
     def search_obj_at_vertex(self, objlist, v): # objlist: AMR_LIFT, AMR_TOW, ...
         objs = []

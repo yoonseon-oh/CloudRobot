@@ -151,10 +151,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Add functions in MapCloudlet.py&#10;Add datatype, robot.info" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="775" y="87" key="#xdebugger.evaluate" timestamp="1627106343352">
+    <state x="465" y="327" width="488" height="353" key="#xdebugger.evaluate" timestamp="1627279764024">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="775" y="87" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1627106343352" />
+    <state x="465" y="327" width="488" height="353" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1627279764024" />
     <state width="715" height="466" key="DebuggerActiveHint" timestamp="1627069827130">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -163,38 +163,38 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1627262232878" />
-    <state width="1259" height="181" key="GridCell.Tab.0.bottom" timestamp="1627276495792">
+    <state width="754" height="30" key="GridCell.Tab.0.bottom" timestamp="1627279777035">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="181" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627276495792" />
-    <state width="1259" height="181" key="GridCell.Tab.0.center" timestamp="1627276495792">
+    <state width="754" height="30" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627279777035" />
+    <state width="754" height="30" key="GridCell.Tab.0.center" timestamp="1627279777035">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="181" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627276495792" />
-    <state width="1259" height="181" key="GridCell.Tab.0.left" timestamp="1627276495791">
+    <state width="754" height="30" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627279777035" />
+    <state width="754" height="30" key="GridCell.Tab.0.left" timestamp="1627279777035">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="181" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627276495791" />
-    <state width="1259" height="181" key="GridCell.Tab.0.right" timestamp="1627276495792">
+    <state width="754" height="30" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627279777035" />
+    <state width="754" height="30" key="GridCell.Tab.0.right" timestamp="1627279777035">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="181" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627276495792" />
-    <state width="1259" height="210" key="GridCell.Tab.1.bottom" timestamp="1627106346776">
+    <state width="754" height="30" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627279777035" />
+    <state width="754" height="30" key="GridCell.Tab.1.bottom" timestamp="1627279777036">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="210" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627106346776" />
-    <state width="1259" height="210" key="GridCell.Tab.1.center" timestamp="1627106346775">
+    <state width="754" height="30" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627279777036" />
+    <state width="754" height="30" key="GridCell.Tab.1.center" timestamp="1627279777036">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="210" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1627106346775" />
-    <state width="1259" height="210" key="GridCell.Tab.1.left" timestamp="1627106346775">
+    <state width="754" height="30" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1627279777036" />
+    <state width="754" height="30" key="GridCell.Tab.1.left" timestamp="1627279777036">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="210" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1627106346775" />
-    <state width="1259" height="210" key="GridCell.Tab.1.right" timestamp="1627106346775">
+    <state width="754" height="30" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1627279777036" />
+    <state width="754" height="30" key="GridCell.Tab.1.right" timestamp="1627279777036">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="210" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1627106346775" />
+    <state width="754" height="30" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1627279777036" />
     <state x="120" y="0" width="914" height="680" key="SettingsEditor" timestamp="1627060585743">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -211,6 +211,11 @@
           <url>file://$PROJECT_DIR$/MapManagement/MapMOS.py</url>
           <line>76</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
+          <line>321</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

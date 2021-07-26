@@ -37,8 +37,8 @@ class RobotSim:
                 ynext = goal_pos[1]
 
         else:
-            xnext = x + (goal_pos[0] - x) / goal_dist * self.VEL + np.random.normal(scale=self.NOISE_SIG)
-            ynext = y + (goal_pos[1] - y) / goal_dist * self.VEL + np.random.normal(scale=self.NOISE_SIG)
+            xnext = x + (goal_pos[0] - x) / goal_dist * self.VEL*t + np.random.normal(scale=self.NOISE_SIG)
+            ynext = y + (goal_pos[1] - y) / goal_dist * self.VEL*t + np.random.normal(scale=self.NOISE_SIG)
 
         t_left =  t - t_req
 

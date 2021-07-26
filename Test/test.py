@@ -33,7 +33,7 @@ Rack_TOW_init = {'RACKTOW0':22, 'RACKTOW1':13}
 Door_init = {'Door0':0}
 
 
-T_DEL = 1 # sec time interval for one step
+T_DEL = 0.5 # sec time interval for one step
 
 
 
@@ -46,11 +46,11 @@ def draw(map, smap, robots):
     # draw the plan
     for rid, path in smap.Path_AMR_TOW.items():
         x, y = path_to_pos(path=path, map = map)
-        plt.plot(x, y, 'y', linewidth= 5)
+        plt.plot(x, y, 'o-y', linewidth= 5, markersize = 10)
 
     for rid, path in smap.Path_AMR_LIFT.items():
         x, y = path_to_pos(path=path, map=map)
-        plt.plot(x, y, 'y', linewidth=5)
+        plt.plot(x, y, 'o-y', linewidth=5, markersize = 10)
 
     map.draw_map()
     for rid, robot in robots.items():
@@ -75,7 +75,7 @@ def draw(map, smap, robots):
     for id, val in smap.CARGO.items():
         plt.plot(val['pos'][-1][0], val['pos'][-1][1], 'd',color='black', markersize=3)
 
-    plt.pause(0.2)
+    plt.pause(0.05)
 
 def get_callinfo(t, vertex):
     info = CallInfo()
