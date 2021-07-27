@@ -357,6 +357,15 @@ class MapCloudlet:
             print("Error: there are multiple objects at the vertex", objs)
             return -1
 
+    # Translate internal data into GL format
+    def get_RobotPos_GL(self, robot_id):
+        if robot_id in self.AMR_TOW_IDs:
+            return '{RobotPose {} (vertex {} {})'.format(robot_id, self.AMR_TOW[robot_id]['vertex'][-1][0], self.AMR_TOW[robot_id]['vertex'][-1][1])
+        else:
+            return '{RobotPose {} (vertex {} {})'.format(robot_id, self.AMR_LIFT[robot_id]['vertex'][-1][0],
+                                                         self.AMR_LIFT[robot_id]['vertex'][-1][1])
+
+
 
 if __name__=="__main__":
     map = MapCloudlet("../data/map.txt")

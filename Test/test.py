@@ -75,7 +75,7 @@ def draw(map, smap, robots):
     for id, val in smap.CARGO.items():
         plt.plot(val['pos'][-1][0], val['pos'][-1][1], 'd',color='black', markersize=3)
 
-    plt.pause(0.05)
+    plt.pause(0.1)
 
 def get_callinfo(t, vertex):
     info = CallInfo()
