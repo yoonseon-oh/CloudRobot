@@ -8,6 +8,8 @@ class MapCloudlet:
     def __init__(self, mapfile, AMR_LIFT_init, AMR_TOW_init, RACK_TOW_init, RACK_LIFT_init,Door_init, t_init = 0):
         # Mapfile: MOS map data file
         # AMR_LITF_IDS, AMR_TOW_IDs: list of robot IDs
+        self.VEL = 0.8 # velocity used to compute collision
+        self.Collision_DIST = 1.9
 
         # Load static_map
         self.static_map = MapMOS(mapfile)
@@ -178,6 +180,7 @@ class MapCloudlet:
                 else:
                     self.AMR_TOW[info.id]['load_id'].append([-1, -1])
 
+        print("info: ", info.id)
         self.update_NAV_PLAN(info.id)
 
     def robot_update_rule(self, robot, info): # define the update rule of robot status: return true to update
@@ -213,7 +216,7 @@ class MapCloudlet:
             self.AMR_LIFT[amr_lift_id]['pos'].append(self.AMR_LIFT[amr_lift_id]['pos'][-1])
             self.AMR_LIFT[amr_lift_id]['vertex'].append(self.AMR_LIFT[amr_lift_id]['vertex'][-1])
             self.AMR_LIFT[amr_lift_id]['load'].append(1)
-            self.AMR_LIFT[amr_lift_id]['load_id'].append([rack_id, cargo_id])
+            self.AMR_LIFT[amr_lift_id]['load_id'].append([rack_id, new_cargo_id])
 
 
     def call_TOW(self, info_call): # call if a human calls AMR-TOW (cargo was moved from LIFT to TOW)
@@ -299,20 +302,26 @@ class MapCloudlet:
 
     def insert_NAV_PLAN(self, amr_id, path): # Call when a new path is allocated
         if amr_id in self.AMR_LIFT_IDs:
-            self.Path_AMR_LIFT[amr_id] = path
+            self.Path_AMR_LIFT[amr_id] = path.copy()
 
         elif amr_id in self.AMR_TOW_IDs:
-            self.Path_AMR_TOW[amr_id] = path
+            self.Path_AMR_TOW[amr_id] = path.copy()
 
     def update_NAV_PLAN(self, amr_id): # Update the path that the robot should follow TODO: 지나가도 할 수 있게
+
         if amr_id in self.AMR_LIFT_IDs:
             if len(self.Path_AMR_LIFT[amr_id]) !=0:
                 compare_nodes = [[self.Path_AMR_LIFT[amr_id][0]]*2]
+
                 if len(self.Path_AMR_LIFT[amr_id])>1:
                     compare_nodes.append(self.Path_AMR_LIFT[amr_id][0:2])
                     compare_nodes.append([self.Path_AMR_LIFT[amr_id][1],self.Path_AMR_LIFT[amr_id][0]])
                 if self.AMR_LIFT[amr_id]['vertex'][-1] in compare_nodes:
                     self.Path_AMR_LIFT[amr_id].pop(0)
+
+                #print("call update Nav Plan", amr_id, self.AMR_LIFT[amr_id]['vertex'][-1], compare_nodes)
+                #print('path plan ', self.Path_AMR_LIFT[amr_id])
+
         elif amr_id in self.AMR_TOW_IDs:
             if len(self.Path_AMR_TOW[amr_id]) !=0:
                 compare_nodes = [[self.Path_AMR_TOW[amr_id][0]] * 2]
@@ -322,9 +331,73 @@ class MapCloudlet:
                 if self.AMR_TOW[amr_id]['vertex'][-1] in compare_nodes:
                     self.Path_AMR_TOW[amr_id].pop(0)
 
+                #print("call update Nav Plan", self.AMR_LIFT[amr_id]['vertex'][-1], compare_nodes)
+
+    def detect_collision(self, T): # return [AMR_id1, AMR_id2] if collision occurs in time T
+        delT = 0.1
+        trajs = {}
+        amr_ids = []
+        collision_set = []
+        for rid in self.AMR_TOW_IDs:
+            trajs[rid] = self.generate_traj_from_plan(self.AMR_TOW[rid]['pos'][-1], self.VEL, delT, T, self.Path_AMR_TOW[rid])
+            amr_ids.append(rid)
+        for rid in self.AMR_LIFT_IDs:
+            trajs[rid] = self.generate_traj_from_plan(self.AMR_LIFT[rid]['pos'][-1], self.VEL, delT, T, self.Path_AMR_LIFT[rid])
+            amr_ids.append(rid)
+
+        for ii in range(0, len(amr_ids)):
+            rid1 = amr_ids[ii]
+            x1 = np.array(trajs[rid1]['x'])
+            y1 = np.array(trajs[rid1]['y'])
+            for jj in range(ii+1, len(amr_ids)):
+                rid2 = amr_ids[jj]
+                x2 = np.array(trajs[rid2]['x'])
+                y2 = np.array(trajs[rid2]['y'])
+                for t in range(0, min(len(x1), len(x2))):
+                    if (x1[t]-x2[t]) ** 2 + (y1[t]-y2[t])**2 < self.Collision_DIST ** 2:
+                        collision_set.append([rid1, rid2, t*delT])
+                        break
+
+        return collision_set
+
+    def generate_traj_from_plan(self, init, vel, delT, T, plan):
+
+        traj = {'x':[], 'y':[]} # initialize
+        t = T # initialize
+        x= init[0]
+        y = init[1]
+        path = plan.copy()
+
+        while t > 0 and path != []:
+            # move one step during delT
+            t_left = delT
+            while t_left > 0:
+                goal_pos = [self.static_map.VertexPos[path[0]][0], self.static_map.VertexPos[path[0]][2]]
+                goal_dist =  np.sqrt((goal_pos[0]-x)**2 + (goal_pos[1]-y)**2) # distance from the current pos to goal position
+
+                t_req = goal_dist/ vel
+
+                if delT >= t_req: # pass the next node in the path
+                    path.pop(0)
+                    if path == []:
+                        x = goal_pos[0]
+                        y = goal_pos[1]
+                    t_left = 0
+                else:
+                    x = x + (goal_pos[0] - x) / goal_dist * vel * t_left
+                    y = y + (goal_pos[1] - y) / goal_dist * vel * t_left
+
+                    t_left = t_left-t_req
+
+            t = t-delT
+            traj['x'].append(x)
+            traj['y'].append(y)
+
+        return traj
+
     def convert_pose_to_vertex(self, pose):
         # return two closest vertex from pose, the distance should be less than threshold
-        th = 0.3
+        th = 0.2
         dist_set = []
         id_set = []
         for id, ver_pose in self.static_map.VertexPos.items():

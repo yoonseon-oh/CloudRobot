@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04149278-7bc7-47aa-8e5e-6913cd76eeb1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DataType/MultiPath.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MapManagement/MapCloudlet.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapManagement/MapCloudlet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NavigationControl/NavigationControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/NavigationControl/NavigationControl.py" afterDir="false" />
@@ -51,7 +50,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.NavigationControl">
+  <component name="RunManager" selected="Python.test">
     <configuration name="MapCloudlet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CloudRobot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,8 +137,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.NavigationControl" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.NavigationControl" />
         <item itemvalue="Python.MapMOS" />
         <item itemvalue="Python.MapCloudlet" />
       </list>
@@ -164,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626855667737</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add functions in MapCloudlet.py&#10;Add datatype, robot.info">
+      <created>1627376232201</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1627376232201</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,7 +194,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
-          <line>275</line>
+          <line>278</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -197,28 +203,13 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
-          <line>122</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
-          <line>126</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
-          <line>118</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>110</line>
+          <line>115</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>102</line>
+          <line>107</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

@@ -15,11 +15,12 @@ AMR_TOW_IDs = ['AMRTOW0', 'AMRTOW1']
 RobotPlan = {'AMRLIFT0': [['move',[220,7]], ['load'], ['move',[220,219,21]], ['unload'], ['move',[219,220]]],
              'AMRLIFT1':[['move',[205,206,207,3]], ['load'],['move',[207,208,209]]],
              'AMRTOW0': [['call'], ['move',[233,234,22]], ['load'], ['move', [234,235,236,237,238,239,20]],
-                         ['call'],['move',[239,238]]]}
+                         ['call'],['move',[239,238]]],
+             'AMRTOW1': [['move',[207,206]]]}
 
 # RobotInit
 AMR_LIFT_init = {'AMRLIFT0':219, 'AMRLIFT1':204}
-AMR_TOW_init = {'AMRTOW0':230, 'AMRTOW1':232}
+AMR_TOW_init = {'AMRTOW0':230, 'AMRTOW1':3}
 #RobotInitPos = {}
 #for key, vertex in RobotInit.items():
 #    RobotInitPos[key] = [MAP.VertexPos[vertex][0], MAP.VertexPos[vertex][2]]
@@ -48,9 +49,17 @@ def draw(map, smap, robots):
         x, y = path_to_pos(path=path, map = map)
         plt.plot(x, y, 'o-y', linewidth= 5, markersize = 10)
 
+        # test fine trajectories
+        plan_traj = smap.generate_traj_from_plan(init=smap.AMR_TOW[rid]['pos'][-1].copy(), vel=0.8, delT = 0.1, T=3, plan=path.copy())
+        plt.plot(plan_traj['x'],plan_traj['y'], 'o-g', linewidth=3, markersize=3)
+
     for rid, path in smap.Path_AMR_LIFT.items():
         x, y = path_to_pos(path=path, map=map)
         plt.plot(x, y, 'o-y', linewidth=5, markersize = 10)
+
+        # test fine trajectories
+        plan_traj = smap.generate_traj_from_plan(init=smap.AMR_LIFT[rid]['pos'][-1].copy(), vel=0.8, delT = 0.1, T=3, plan=path.copy())
+        plt.plot(plan_traj['x'], plan_traj['y'], 'o-g', linewidth=3, markersize=3)
 
     map.draw_map()
     for rid, robot in robots.items():
@@ -60,10 +69,10 @@ def draw(map, smap, robots):
         # draw the semantic map
         if rid in AMR_LIFT_IDs:
             plt.plot(smap.AMR_LIFT[rid]['pos'][-1][0],smap.AMR_LIFT[rid]['pos'][-1][1], draw_set_s[rid], markersize=8)
-            print("RobotVertex: ", rid, smap.AMR_LIFT[rid]['vertex'][-1])
+            #print("RobotVertex: ", rid, smap.AMR_LIFT[rid]['vertex'][-1])
         elif rid in AMR_TOW_IDs:
             plt.plot(smap.AMR_TOW[rid]['pos'][-1][0], smap.AMR_TOW[rid]['pos'][-1][1], draw_set_s[rid], markersize=8)
-            print("RobotVertex: ", rid, smap.AMR_TOW[rid]['vertex'][-1])
+            #print("RobotVertex: ", rid, smap.AMR_TOW[rid]['vertex'][-1])
 
 
     for id, val in smap.RACK_TOW.items():
@@ -116,7 +125,7 @@ while FLAG_RUN:
     for rid, plan in RobotPlan.items():
         if plan !=[]:
             if robots[rid].plan == [] and plan[0][0] !='call': # if empty, insert plan and not call
-                robots[rid].insert_plan(plan[0])
+                robots[rid].insert_plan(plan[0].copy())
                 if plan[0][0] == 'move': # allocate the plan
                     smap.insert_NAV_PLAN(rid,plan[0][1].copy())
                     #print("insert: NavPlan")
@@ -135,15 +144,30 @@ while FLAG_RUN:
     print('----------------------------')
     for key in robots.keys():
         #print(key, robots[key].plan)
-        robots[key].print_data()
         robots[key].execute_plan(T_DEL) # execute
-        robots[key].print_data()
+
 
         if robots[key].status == 'done':
             robots[key].status = 'none'
 
+    # Update the semantic map
+    for key in robots.keys():
         # update the semantic map
         smap.update_MOS_robot_info(robots[key].get_Robotinfo(timestamp))
+
+        # print
+        if key in AMR_LIFT_IDs:
+            print('path plan ', key, smap.Path_AMR_LIFT[key])
+            print("RobotVertex: ", key, smap.AMR_LIFT[key]['vertex'][-1])
+        elif key in AMR_TOW_IDs:
+            print('path plan ', key, smap.Path_AMR_TOW[key])
+            print("RobotVertex: ", key, smap.AMR_TOW[key]['vertex'][-1])
+
+    # Check the collision
+    collision_set = smap.detect_collision(T=3)
+    if collision_set != []:
+        print(collision_set)
+        plt.pause(2)
 
     # Call TOW when tow arrives at the vertex
     #print(smap.AMR_LIFT['AMRLIFT0']['vertex'][-1])
@@ -168,6 +192,7 @@ while FLAG_RUN:
             info_call = CallInfo()
             info_call.vertex = [20,20]
             smap.call_removeCargo(info_call)
+
 
     draw(MAP, smap, robots)
 

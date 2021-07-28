@@ -49,11 +49,12 @@ class NavigationControl:
             if self.NavPath[rid] !=[]:
                 if self.robotTM[rid] !=[]:
                     if vid in [[self.robotTM[rid][0]]*2]:
-                        self.robotTM[rid].pop(0) # TODO: 틀렸다
+                        self.robotTM[rid].pop(0)
                 else:
                     start_idx = self.PlanExecutedIdx[rid]+1
                     if self.timing[rid][start_idx] == []: # no condition
                         self.robotTM[rid] = self.extract_TM(self.NavPath[rid][start_idx:], self.timing[rid][start_idx:])
+                        self.send_RobotTM(rid, self.robotTM[rid]) # send the command
 
                     else: # check condition
                         flag_start = True
@@ -62,6 +63,7 @@ class NavigationControl:
                                 flag_start = False
                         if flag_start:
                             self.robotTM[rid] = self.extract_TM(self.NavPath[rid][start_idx:], self.timing[rid][start_idx:])
+                            self.send_RobotTM(rid, self.robotTM[rid]) # send the command
 
             # Reset PlanExecutedIdx
             for rid, vid in robot_pose.items():
@@ -87,6 +89,9 @@ class NavigationControl:
         # check if the start condition of a new TM command is satisfied.
 
         print("update robot TM")
+
+    def send_RobotTM(self, robotid, robotTM): # send command to RobotTM
+        print("send a command to RobotTM: ", rid, robotTM)
 
 if __name__ == "__main__":
     AMR_IDs = ['AMRLIFT0', 'AMRLIFT1', 'AMRTOW0', 'AMRTOW1']
