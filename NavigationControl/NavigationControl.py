@@ -11,31 +11,90 @@ class NavigationControl:
             self.timing[id] = [] # if NavPath[rid1][idx1] == NavPath[rid2][idx2] and idx2<idx1 : timing[id]=[[rid2, time_idx2, NavPath[rid1][idx1]], ...]
 
         # command for RobotTM
-        self.robotTM = {}
+        self.robotTM = {} # the current command for RobotTM
+        self.robotTM_set = {} # full sequence of commands for RobotTM
+        self.robotTM_scond = {} # start condition of robotTM
         for id in self.AMR_IDs:
             self.robotTM[id] = [] # ['type', []] type: 'move' [path] or 'cancel'
+            self.robotTM_set[id] = []
+            self.robotTM_scond[id] = []
 
         self.PlanExecutedIdx = {}
         for id in self.AMR_IDs:
             self.PlanExecutedIdx[id] = -1 # Save the last index of NavPath which the robot follows
 
     def insert_navpath(self, multipaths): # multipath: MultiPath type
+        start_condition = {}
+        for key in multipaths.keys():
+            start_condition[key] = []
+        # Analyze timing
         for rid, path in multipaths.items():
-            self.NavPath[rid] = path
 
-            # Parse tha path
             for idx in range(0, len(path)): # compare
-                timing_list = []
+                scond = []
                 rid_list = self.AMR_IDs.copy()
                 rid_list.remove(rid)
                 for rid2 in rid_list:
                     for idx2 in range(min(idx,len(multipaths[rid2])-1), -1, -1):
                         if path[idx] == multipaths[rid2][idx2]:
-                            timing_list.append([rid2, idx2, path[idx]])
+                            scond.append([rid2, idx2])
 
-                self.timing[rid].append(timing_list)
+                start_condition[rid].append(scond)
 
-    def update_robot_TM(self, robot_pose): # call when the robot position changes - debuggin
+        # Split navigation paths to robotTM
+        robotTM_mapping_set = {}
+        scondTM_set = {}
+        for rid, path in multipaths.items():
+            robotTM_seq = []
+            robotTM_mapping = [] # save index of robotTM_set corresponding to each element in path
+            scond = []
+            t1 = 0
+            t2 = 0
+
+            if path != []:
+                robotTM = [path[0]]
+                scond = [start_condition[rid][0]]
+                for ii in range(1, len(path)):
+                    if start_condition[rid][ii] == []:
+                        if path[ii] != robotTM[-1]:
+                            robotTM.append(path[ii])
+                            t2 = t2 + 1
+
+                    else:
+                        robotTM_seq.append(robotTM)
+                        t1 = t1+1
+                        t2 = 0
+                        robotTM  = [path[ii]]
+                        scond.append(start_condition[rid][ii])
+
+                    robotTM_mapping.append([t1,t2])
+
+                robotTM_seq.append(robotTM)
+
+            self.robotTM_set[rid] = robotTM_seq
+            robotTM_mapping_set[rid] = robotTM_mapping
+            scondTM_set[rid] = scond
+
+        # find start condnition for TM
+        scond_TM_translated = {}
+        for rid in multipaths.keys():
+            scond = []
+            for tt in range(0, len(scondTM_set[rid])):
+                if scondTM_set[rid][tt] !=[]:
+                    cond_cur = []
+                    for cond in scondTM_set[rid][tt]:
+                        cond_cur.append([cond[0], robotTM_mapping_set[cond[0]][cond[1]]])
+
+                    scond.append(cond_cur)
+                else:
+                    scond.append([])
+
+            scond_TM_translated[rid] = scond
+
+        self.robotTM_scond = scond_TM_translated
+
+
+    def update_robot_TM(self, robot_pose): # call when the robot position changes - # TODO
         # robot_pose ={robot_id: [vertex, vertex], ...}
 
         # check whether the current TM command is executed

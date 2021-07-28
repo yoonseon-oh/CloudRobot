@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04149278-7bc7-47aa-8e5e-6913cd76eeb1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapManagement/MapCloudlet.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapManagement/MapCloudlet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NavigationControl/NavigationControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/NavigationControl/NavigationControl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test/test.py" afterDir="false" />
-    </list>
+    <list default="true" id="04149278-7bc7-47aa-8e5e-6913cd76eeb1" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +46,19 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.NavigationControl">
     <configuration name="MapCloudlet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CloudRobot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,14 +145,14 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.NavigationControl" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.MapMOS" />
         <item itemvalue="Python.MapCloudlet" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -170,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627376232201</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add collision_check in MapCloudlet.py">
+      <created>1627455441471</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1627455441471</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,16 +193,18 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add functions in MapCloudlet.py&#10;Add datatype, robot.info" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add functions in MapCloudlet.py&#10;Add datatype, robot.info" />
+    <MESSAGE value="Add collision_check in MapCloudlet.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add collision_check in MapCloudlet.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -204,22 +221,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>115</line>
+          <line>174</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>107</line>
+          <line>166</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>44</line>
+          <line>103</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>43</line>
+          <line>102</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
