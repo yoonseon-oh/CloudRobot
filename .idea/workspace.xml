@@ -222,22 +222,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="497" y="74" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1627536187367" />
-    <state width="1259" height="245" key="GridCell.Tab.0.bottom" timestamp="1627536310049">
+    <state width="619" height="172" key="GridCell.Tab.0.bottom" timestamp="1627537216184">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="245" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
-    <state width="1259" height="245" key="GridCell.Tab.0.center" timestamp="1627536310049">
+    <state width="619" height="172" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
+    <state width="619" height="172" key="GridCell.Tab.0.center" timestamp="1627537216184">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="245" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
-    <state width="1259" height="245" key="GridCell.Tab.0.left" timestamp="1627536310049">
+    <state width="619" height="172" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
+    <state width="619" height="172" key="GridCell.Tab.0.left" timestamp="1627537216184">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="245" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
-    <state width="1259" height="245" key="GridCell.Tab.0.right" timestamp="1627536310049">
+    <state width="619" height="172" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
+    <state width="619" height="172" key="GridCell.Tab.0.right" timestamp="1627537216184">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1259" height="245" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
+    <state width="619" height="172" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
     <state width="1259" height="174" key="GridCell.Tab.1.bottom" timestamp="1627536209430">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -274,12 +274,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>192</line>
+          <line>176</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>184</line>
+          <line>168</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>

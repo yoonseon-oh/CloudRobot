@@ -146,22 +146,6 @@ class NavigationControl:
 
         return Rid_sendRobotTM
 
-
-    def extract_TM(self, navpath, timing): # Extract TM from navpath
-        robotTM = [navpath[0]]
-        for ii in range(1, len(navpath)):
-            if timing[ii] == []:
-                if navpath[ii] != robotTM[-1]:
-                    robotTM.append(navpath[ii])
-            else:
-                break
-
-        return robotTM
-
-        # check if the start condition of a new TM command is satisfied.
-
-        print("update robot TM")
-
     def send_RobotTM(self, robotid, robotTM): # send command to RobotTM
         print("send a command to RobotTM: ", robotid, robotTM)
 
