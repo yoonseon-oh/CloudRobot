@@ -84,7 +84,7 @@ class RobotSim:
         self.plan = []
 
     def insert_plan(self, plan):
-        self.plan = plan
+        self.plan = plan.copy()
         self.status = 'ing'
 
     def print_data(self):

@@ -4,26 +4,33 @@ class NavigationControl:
         self.AMR_IDs = AMR_IDs
 
         # path given by multi-robot path finder
-        self.NavPath = {}
-        self.timing = {} # execution timing
-        for id in self.AMR_IDs:
-            self.NavPath[id] = []
-            self.timing[id] = [] # if NavPath[rid1][idx1] == NavPath[rid2][idx2] and idx2<idx1 : timing[id]=[[rid2, time_idx2, NavPath[rid1][idx1]], ...]
+        #self.NavPath = {}
+        #self.timing = {} # execution timing
+        #for id in self.AMR_IDs:
+        #    self.NavPath[id] = []
+        #    self.timing[id] = [] # if NavPath[rid1][idx1] == NavPath[rid2][idx2] and idx2<idx1 : timing[id]=[[rid2, time_idx2, NavPath[rid1][idx1]], ...]
 
         # command for RobotTM
         self.robotTM = {} # the current command for RobotTM
         self.robotTM_set = {} # full sequence of commands for RobotTM
         self.robotTM_scond = {} # start condition of robotTM
         for id in self.AMR_IDs:
-            self.robotTM[id] = [] # ['type', []] type: 'move' [path] or 'cancel'
-            self.robotTM_set[id] = []
-            self.robotTM_scond[id] = []
+            self.robotTM[id] = [] # a sequence of vertices
+            self.robotTM_set[id] = [] # [robotTM, robotTM, robotTM, ...]
+            self.robotTM_scond[id] = [] # start condition of robotTM
 
         self.PlanExecutedIdx = {}
+        self.Flag_terminate = {}
         for id in self.AMR_IDs:
-            self.PlanExecutedIdx[id] = -1 # Save the last index of NavPath which the robot follows
+            self.PlanExecutedIdx[id] = [-1, -1] # [i,j] Save the last index of NavPath[i][j] which the robot follows
+            self.Flag_terminate[id] = False
 
-    def insert_navpath(self, multipaths): # multipath: MultiPath type
+    def get_multipath_plan(self, multipaths): # multipath: MultiPath type
+        # initialize PlanExecutedIdx
+        for id in multipaths.keys():
+            self.PlanExecutedIdx[id] = [-1, -1] # [i,j] Save the last index of NavPath[i][j] which the robot follows
+            self.Flag_terminate[id] = False
+
         start_condition = {}
         for key in multipaths.keys():
             start_condition[key] = []
@@ -32,7 +39,7 @@ class NavigationControl:
 
             for idx in range(0, len(path)): # compare
                 scond = []
-                rid_list = self.AMR_IDs.copy()
+                rid_list = list(multipaths.keys())
                 rid_list.remove(rid)
                 for rid2 in rid_list:
                     for idx2 in range(min(idx,len(multipaths[rid2])-1), -1, -1):
@@ -71,7 +78,7 @@ class NavigationControl:
 
                 robotTM_seq.append(robotTM)
 
-            self.robotTM_set[rid] = robotTM_seq
+            self.robotTM_set[rid] = robotTM_seq.copy()
             robotTM_mapping_set[rid] = robotTM_mapping
             scondTM_set[rid] = scond
 
@@ -93,44 +100,51 @@ class NavigationControl:
 
         self.robotTM_scond = scond_TM_translated
 
-
     def update_robot_TM(self, robot_pose): # call when the robot position changes - # TODO
         # robot_pose ={robot_id: [vertex, vertex], ...}
+        Rid_sendRobotTM = [] # list of robot ids, of which robot TM a navigation controller should send
+        #print("Robot TM 2:    ", self.robotTM)
 
         # check whether the current TM command is executed
         for rid, vid in robot_pose.items():
-            if self.robotTM[rid] != []:
+            if self.robotTM[rid] != []: # check plan execution
                 if vid in [[self.robotTM[rid][0]]*2]:
-                    self.PlanExecutedIdx[rid] = self.PlanExecutedIdx[rid] + 1
+                    self.PlanExecutedIdx[rid][1] = self.PlanExecutedIdx[rid][1] + 1
+            if self.robotTM_set[rid] != []: # check flag_terminate
+                if self.PlanExecutedIdx[rid] == [len(self.robotTM_set[rid])-1, len(self.robotTM_set[rid][-1])-1]:
+                    self.Flag_terminate[rid] = True
+            else:
+                self.Flag_terminate[rid] = True
 
         # Update the robot TM
         for rid, vid in robot_pose.items():
-            if self.NavPath[rid] !=[]:
-                if self.robotTM[rid] !=[]:
-                    if vid in [[self.robotTM[rid][0]]*2]:
-                        self.robotTM[rid].pop(0)
-                else:
-                    start_idx = self.PlanExecutedIdx[rid]+1
-                    if self.timing[rid][start_idx] == []: # no condition
-                        self.robotTM[rid] = self.extract_TM(self.NavPath[rid][start_idx:], self.timing[rid][start_idx:])
-                        self.send_RobotTM(rid, self.robotTM[rid]) # send the command
+            if not self.Flag_terminate[rid]:
+                if self.robotTM_set[rid] !=[]:
+                    if self.robotTM[rid] !=[]: # update robotTM
+                        if vid in [[self.robotTM[rid][0]]*2]: # if a robot arrives at self.robotTM[rid][0]
+                            self.robotTM[rid].pop(0)
+                    else: # allocate a new robotTM
+                        start_idx = self.PlanExecutedIdx[rid][0]+1
+                        if self.robotTM_scond[rid][start_idx] == []: # no condition
+                            self.robotTM[rid] = self.robotTM_set[rid][start_idx].copy()
+                            self.PlanExecutedIdx[rid] = [start_idx, -1]
+                            # send the command
+                            Rid_sendRobotTM.append(rid)
+                        else: # check condition
+                            flag_start = True
+                            for cond in self.robotTM_scond[rid][start_idx]:
+                                if self.PlanExecutedIdx[cond[0]][0] < cond[1][0] or self.PlanExecutedIdx[cond[0]][1] < cond[1][1]:
+                                    flag_start = False
+                            if flag_start:
+                                self.robotTM[rid] = self.robotTM_set[rid][start_idx].copy()
+                                self.PlanExecutedIdx[rid] = [start_idx, -1]
+                                # send the command
+                                Rid_sendRobotTM.append(rid)
 
-                    else: # check condition
-                        flag_start = True
-                        for cond in self.timing[start_idx]:
-                            if self.PlanExecutedIdx[cond[0]] <= cond[1]:
-                                flag_start = False
-                        if flag_start:
-                            self.robotTM[rid] = self.extract_TM(self.NavPath[rid][start_idx:], self.timing[rid][start_idx:])
-                            self.send_RobotTM(rid, self.robotTM[rid]) # send the command
+        #print("PlanExecuted ", self.PlanExecutedIdx)
+        #print("Robot TM 2:    ",self.robotTM)
 
-            # Reset PlanExecutedIdx
-            for rid, vid in robot_pose.items():
-                if self.PlanExecutedIdx[rid] == len(self.NavPath[rid])-1:
-                    self.PlanExecutedIdx[rid] = -1
-
-        print("PlanExecuted ", self.PlanExecutedIdx)
-        print("Robot TM:    ",self.robotTM)
+        return Rid_sendRobotTM
 
 
     def extract_TM(self, navpath, timing): # Extract TM from navpath
@@ -144,19 +158,23 @@ class NavigationControl:
 
         return robotTM
 
-
         # check if the start condition of a new TM command is satisfied.
 
         print("update robot TM")
 
     def send_RobotTM(self, robotid, robotTM): # send command to RobotTM
-        print("send a command to RobotTM: ", rid, robotTM)
+        print("send a command to RobotTM: ", robotid, robotTM)
+
+    def collision_handle(self): # call if the collision occurs
+        print("send cancel")
+        print("get multipath again")
+
 
 if __name__ == "__main__":
     AMR_IDs = ['AMRLIFT0', 'AMRLIFT1', 'AMRTOW0', 'AMRTOW1']
     navcont = NavigationControl(AMR_IDs)
     multipaths = {'AMRLIFT0': [1,2,4,6,5], 'AMRLIFT1': [3,3,2,4,6,7,7,8], 'AMRTOW0':[], 'AMRTOW1':[]}
-    navcont.insert_navpath(multipaths)
+    navcont.get_multipath_plan(multipaths)
 
     # test - update extract_TM
     #rid = AMR_IDs[1]

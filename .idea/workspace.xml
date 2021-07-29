@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04149278-7bc7-47aa-8e5e-6913cd76eeb1" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,27 +37,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Research\github_projects\CloudRobot\Test" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.NavigationControl">
+  <component name="RunManager" selected="Python.test_NavCont">
     <configuration name="MapCloudlet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CloudRobot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -134,7 +124,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test/test.py" />
+      <option name="SCRIPT_NAME" value="D:\Research\github_projects\CloudRobot\Test\test_semanticmap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_NavCont" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CloudRobot" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test/test_NavCont.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -145,14 +156,15 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.NavigationControl" />
+        <item itemvalue="Python.test_NavCont" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.NavigationControl" />
         <item itemvalue="Python.MapMOS" />
         <item itemvalue="Python.MapCloudlet" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -193,25 +205,66 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add functions in MapCloudlet.py&#10;Add datatype, robot.info" />
     <MESSAGE value="Add collision_check in MapCloudlet.py" />
     <option name="LAST_COMMIT_MESSAGE" value="Add collision_check in MapCloudlet.py" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="497" y="74" key="#xdebugger.evaluate" timestamp="1627536187367">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="497" y="74" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1627536187367" />
+    <state width="1259" height="245" key="GridCell.Tab.0.bottom" timestamp="1627536310049">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="245" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
+    <state width="1259" height="245" key="GridCell.Tab.0.center" timestamp="1627536310049">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="245" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
+    <state width="1259" height="245" key="GridCell.Tab.0.left" timestamp="1627536310049">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="245" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
+    <state width="1259" height="245" key="GridCell.Tab.0.right" timestamp="1627536310049">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="245" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627536310049" />
+    <state width="1259" height="174" key="GridCell.Tab.1.bottom" timestamp="1627536209430">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="174" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
+    <state width="1259" height="174" key="GridCell.Tab.1.center" timestamp="1627536209430">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="174" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
+    <state width="1259" height="174" key="GridCell.Tab.1.left" timestamp="1627536209430">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="174" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
+    <state width="1259" height="174" key="GridCell.Tab.1.right" timestamp="1627536209430">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="174" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1627519124853">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1627519124853" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MapManagement/MapCloudlet.py</url>
-          <line>278</line>
+          <line>280</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -221,23 +274,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>174</line>
+          <line>192</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>166</line>
+          <line>184</line>
           <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>103</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>102</line>
-          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

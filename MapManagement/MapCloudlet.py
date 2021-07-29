@@ -180,7 +180,6 @@ class MapCloudlet:
                 else:
                     self.AMR_TOW[info.id]['load_id'].append([-1, -1])
 
-        print("info: ", info.id)
         self.update_NAV_PLAN(info.id)
 
     def robot_update_rule(self, robot, info): # define the update rule of robot status: return true to update
