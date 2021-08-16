@@ -1,17 +1,19 @@
 import os
 import sys
+import time
+sys.path.append("D:\git_ws\CloudRobot") ### TEMP ###
 import threading
 from threading import Condition
+from arbi_agent.arbi_agent.agent import arbi_agent
 
-from arbi_agent.agent.arbi_agent import ArbiAgent
-from arbi_agent.configuration import BrokerType
-from arbi_agent.ltm.data_source import DataSource
-from arbi_agent.agent import arbi_agent_excutor
-from arbi_agent.model import generalized_list_factory as GLFactory
+from arbi_agent.arbi_agent.agent.arbi_agent import ArbiAgent
+from arbi_agent.arbi_agent.configuration import BrokerType
+from arbi_agent.arbi_agent.ltm.data_source import DataSource
+from arbi_agent.arbi_agent.agent import arbi_agent_excutor
+from arbi_agent.arbi_agent.model import generalized_list_factory as GLFactory
 
 from MapManagement.MapMOS import MapMOS
-from MapManagement.MapCloudlet import MapCloudlet
-from NavigationControl.NavigationControl import *
+from NavigationControl.NavigationControl import NavigationControl
 from DataType.RobotInfo import RobotInfo
 from DataType.CallInfo import CallInfo
 
@@ -44,7 +46,7 @@ class NavigationControlerAgent(ArbiAgent):
         self.lock = Condition()
         
     def on_start(self):
-        self.ltm = NavigationControlDataSource()
+        self.ltm = NavigationControlerDataSource()
         self.ltm.connect("tcp://127.0.0.1:61616", "", BrokerType.ZERO_MQ)
         
     def DoorStatus_query(self, consumer):
@@ -52,60 +54,61 @@ class NavigationControlerAgent(ArbiAgent):
 
     def RobotPathLeft_query(self, consumer):
         self.query(consumer, "")
-        
-    
-        
-        
 
-
-
-
-
-
-
-
-class NavigaionControlerAgent(ArbiAgent):
-    def __init__(self, map_file):
-        super().__init__()
-        self.lock = Condition()
-        self.map_file = map_file
-        self.MAP = MapMOS(self.map_file)
-        
-    def NavigationControl_init(self, AMR_IDs):
-        self.NC = NavigationControl(AMR_IDs)
-    
-    def on_start(self):
-        ltm = NavigationControlDataSource()
-        ltm.connect("tcp://127.0.0.1:61616", "", BrokerType.ZERO_MQ)
-        
-    
-    def RobotNavCont_notify(self):
-        pass
-    
-    def on_notify(self, sender:str, notification: str):
+    def on_notify(self, sender, notification):
         temp_gl = GLFactory.new_gl_from_gl_string(notification)
         
-        if temp_gl.get_name() == "RobotPose":
-            pass
+        if temp_gl.get_name() == "MultiRobotPath":
+
+            temp_gl = temp_gl.get_expression(0).as_generalized_list()
+
+            temp_robotID = temp_gl.get_expression(0)
+
+            temp_path_start = temp_gl.get_expression(1)
+            temp_path_end = temp_gl.get_expression(2)
+
+            temp_path = []
+            temp_gl_path = temp_gl.get_expression(3).as_generalized_list()
+
+            temp_gl_path_size = temp_gl_path.get_expression_size()
+
+            for i in range(temp_gl_path_size):
+                temp_path.append(temp_gl_path.get_expression(i))
         
+            self.ltm.NC.get_multipath_plan(temp_path)
+
+        elif temp_gl.get_name() == "RobotPose":
+            temp_robotID = temp_gl.get_expression(0)
+            temp_vertex_info = temp_gl.get_expression(1).as_generalized_list()
+            temp_vertex_1 = temp_vertex_info.get_expression(0)
+            temp_vertex_2 = temp_vertex_info.get_expression(1)
+
+            temp_robot_pose = {}
+            temp_robot_pose[temp_robotID] = [temp_vertex_1, temp_vertex_2]
+
+            self.ltm.NC.update_robot_TM(temp_robot_pose)
+
         elif temp_gl.get_name() == "RobotPathLeft":
             pass
-        
-    def call_LIFT_request(self):
-        pass
-    
-    def call_TOW_request(self):
-        pass
-    
-    def call_removeCargo_request(self):
-        pass
-        
-class NavigationControlDataSource(DataSource):
-    def __init__(self, broker_url):
-        self.broker = broker_url
-        self.connect(broker_url, "", BrokerType.ZERO_MQ)
 
-        self.map_file = "/data/map_cloud.txt"
-        self.MAP = MapMOS(self.map_file)
+    def on_request(self, sender, request):
+        temp_gl = GLFactory.new_gl_from_gl_string(request)
+        if temp_gl.get_name() == "goal":
+            ### Algorithm ###
+
+            self.send(sender, "") ### TEMP(response) ###
+
+
+
+        
+    
+        
+        
+
+
+
+
+
+
 
         
