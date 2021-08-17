@@ -34,6 +34,10 @@ class NavigationControlerDataSource(DataSource):
         
         self.NC = NavigationControl(self.AMR_IDs)
         
+        self.RobotPathLeft = {}
+        self.RobotPose = []
+        self.Collidable = []
+
     def on_notify(self, content):
         gl_notify = GLFactory.new_gl_from_gl_string(content)
         
@@ -44,6 +48,7 @@ class NavigationControlerAgent(ArbiAgent):
     def __init__(self):
         super().__init__()
         self.lock = Condition()
+        self.MAPF_name = "agent://" # name of MAPF
         
     def on_start(self):
         self.ltm = NavigationControlerDataSource()
@@ -55,33 +60,25 @@ class NavigationControlerAgent(ArbiAgent):
     def RobotPathLeft_query(self, consumer):
         self.query(consumer, "")
 
+    def on_query(self, sender, query):
+        temp_gl = GLFactory.new_gl_from_gl_string(query)
+        if temp_gl.get_name() == "goal":
+            
+            ### if robot is not stationary ###
+            ### 
+
+            MultiRobotPath_response = self.query(self.MAPF_name, "(MultiRobotPath")
+
+            self.send(sender, "") ### TEMP(response) ###
+
     def on_notify(self, sender, notification):
         temp_gl = GLFactory.new_gl_from_gl_string(notification)
-        
-        if temp_gl.get_name() == "MultiRobotPath":
 
-            temp_gl = temp_gl.get_expression(0).as_generalized_list()
-
-            temp_robotID = temp_gl.get_expression(0)
-
-            temp_path_start = temp_gl.get_expression(1)
-            temp_path_end = temp_gl.get_expression(2)
-
-            temp_path = []
-            temp_gl_path = temp_gl.get_expression(3).as_generalized_list()
-
-            temp_gl_path_size = temp_gl_path.get_expression_size()
-
-            for i in range(temp_gl_path_size):
-                temp_path.append(temp_gl_path.get_expression(i))
-        
-            self.ltm.NC.get_multipath_plan(temp_path)
-
-        elif temp_gl.get_name() == "RobotPose":
-            temp_robotID = temp_gl.get_expression(0)
+        if temp_gl.get_name() == "RobotPose":
+            temp_robotID = self.ltm.NC.AMR_IDs[temp_gl.get_expression(0).as_value()]
             temp_vertex_info = temp_gl.get_expression(1).as_generalized_list()
-            temp_vertex_1 = temp_vertex_info.get_expression(0)
-            temp_vertex_2 = temp_vertex_info.get_expression(1)
+            temp_vertex_1 = temp_vertex_info.get_expression(0).as_value()
+            temp_vertex_2 = temp_vertex_info.get_expression(1).as_value()
 
             temp_robot_pose = {}
             temp_robot_pose[temp_robotID] = [temp_vertex_1, temp_vertex_2]
@@ -89,6 +86,18 @@ class NavigationControlerAgent(ArbiAgent):
             self.ltm.NC.update_robot_TM(temp_robot_pose)
 
         elif temp_gl.get_name() == "RobotPathLeft":
+            temp_path = []
+            temp_robotID = self.ltm.NC.AMR_IDs[temp_gl.get_expression(0).as_value()]
+            temp_gl_path = temp_gl.get_expression(1).as_generalized_list()
+
+            temp_gl_path_size = temp_gl_path.get_expression_size()
+
+            for i in range(temp_gl_path_size):
+                temp_path.append(temp_gl_path.get_expression(i))
+
+            self.ltm.RobotPathLeft[temp_robotID] = temp_path
+
+        elif temp_gl.get_name() == "Collidable":
             pass
 
     def on_request(self, sender, request):
