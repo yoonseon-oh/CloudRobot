@@ -55,7 +55,7 @@ class MapManagerDataSource(DataSource):
         
     def on_notify(self, content):
         gl_notify = GLFactory.new_gl_from_gl_string(content)
-        
+        gl_timestamp = self.get_full_message().get_timestamp()
         if gl_notify.get_name() == "RobotInfo":
             temp_RobotInfo = RobotInfo()
             temp_RobotInfo.id = self.AMR_IDs[gl_notify.get_expression(0).as_value()]
@@ -63,17 +63,18 @@ class MapManagerDataSource(DataSource):
             temp_RobotInfo.load = gl_notify.get_expression(3).as_value() # 1 for load , o for unload
             temp_RobotInfo.gl = gl_notify
             ### Timestamp ###
+            temp_RobotInfo.timestamp = gl_timestamp
             self.MM.update_MOS_robot_info(temp_RobotInfo)
             
         elif gl_notify.get_name() == "DoorStatus":
-            # self.DoorStatusNotify = gl_notify
             temp_DoorStatus = {}
+            temp_DoorStatus['timestamp'] = gl_timestamp
             temp_DoorStatus['status'] = gl_notify.get_expression(0).as_value() ### Status Type Check ###
             self.MM.update_MOS_door_info(temp_DoorStatus)
         
         elif gl_notify.get_name() == "HumanCall":
             temp_CallInfo = CallInfo()
-            temp_CallInfo.timestamp = []
+            temp_CallInfo.timestamp = gl_timestamp
 
             if gl_notify.get_expression(0) == 0:
                 if gl_notify.get_expression(1) == 0:
@@ -115,15 +116,16 @@ class MapManagerAgent(ArbiAgent):
         self.ltm = MapManagerDataSource()
         self.ltm.connect("tcp://127.0.0.1:61616", "", BrokerType.ZERO_MQ)
 
-        time.sleep(10)
+        time.sleep(10) # Wait for ltm initialization
 
+        # Notification Thread
         self.CargoPose_notify(self.CM_name)
         self.RackPose_notify(self.CM_name)
         self.RobotPose_notify(self.TA_name)
         self.RobotPose_notify(self.NC_name)
         self.Collidable_notify(self.NC_name)
         self.DoorStatus_notify(self.CM_name)
-        self.RobotPathLeft_notify(self.NC_name)
+        # self.RobotPathLeft_notify(self.NC_name)
 
         # CargoPose_notify_thread = threading.Thread(target=self.CargoPose_notify, args=(self.CM_name))
         # RackPose_notify_thread = threading.Thread(target=self.RackPose_notify, args=())
@@ -249,62 +251,92 @@ class MapManagerAgent(ArbiAgent):
 
         temp_Door_info = self.ltm.MM.Door
         temp_Door_status = temp_Door_info[0]['status']
-        ### Timestamp ###
-        value = GLFactory.int_value(temp_Door_status) ### Temporary Data Type of DoorStatus ###
-        expression = GLFactory.value_expression(value)
-        temp_gl = GLFactory.new_generalized_list("DoorStatus", expression)
+        temp_gl = "(DoorStatus {status})"
 
-        self.notify(consumer, temp_gl)
+        self.notify(consumer, temp_gl.format(temp_Door_status))
         threading.Timer(self.threading_timer, self.DoorStatus_notify, [consumer]).start()
 
-    def RobotPathLeft_notify(self, consumer):
-        temp_AMR_LIFT_Path = self.ltm.MM.Path_AMR_LIFT
-        temp_AMR_TOW_Path = self.ltm.MM.Path_AMR_TOW
+    # def RobotPathLeft_notify(self, consumer):
+    #     temp_AMR_LIFT_Path = self.ltm.MM.Path_AMR_LIFT
+    #     temp_AMR_TOW_Path = self.ltm.MM.Path_AMR_TOW
 
-        for id in temp_AMR_LIFT_Path.keys():
-            temp_notify = "(RobotPathLeft {robotID} {path})"
-            temp_robot_id = self.ltm.AMR_IDs.index(id)
-            temp_path = "(path"
-            for i in range(len(temp_AMR_LIFT_Path[id])):
-                temp_path = temp_path + str(temp_AMR_LIFT_Path[id][i])
+    #     for id in temp_AMR_LIFT_Path.keys():
+    #         temp_notify = "(RobotPathLeft {robotID} {path})"
+    #         temp_robot_id = self.ltm.AMR_IDs.index(id)
+    #         temp_path = "(path"
+    #         for i in range(len(temp_AMR_LIFT_Path[id])):
+    #             temp_path = temp_path + str(temp_AMR_LIFT_Path[id][i])
 
-            temp_path = temp_path + ")"
+    #         temp_path = temp_path + ")"
 
-            self.notify(consumer, temp_notify.format(temp_robot_id, temp_path))
+    #         self.notify(consumer, temp_notify.format(temp_robot_id, temp_path))
 
-        for id in temp_AMR_TOW_Path.keys():
-            temp_notify = "(RobotPathLeft {robotID} {path})"
-            temp_robot_id = self.ltm.AMR_IDs.index(id)
-            temp_path = "(path"
-            for i in range(len(temp_AMR_TOW_Path[id])):
-                temp_path = temp_path + str(temp_AMR_TOW_Path[id][i])
+    #     for id in temp_AMR_TOW_Path.keys():
+    #         temp_notify = "(RobotPathLeft {robotID} {path})"
+    #         temp_robot_id = self.ltm.AMR_IDs.index(id)
+    #         temp_path = "(path"
+    #         for i in range(len(temp_AMR_TOW_Path[id])):
+    #             temp_path = temp_path + str(temp_AMR_TOW_Path[id][i])
 
-            temp_path = temp_path + ")"
+    #         temp_path = temp_path + ")"
 
-            self.notify(consumer, temp_notify.format(temp_robot_id, temp_path))
+    #         self.notify(consumer, temp_notify.format(temp_robot_id, temp_path))
         
-        threading.Timer(self.threading_timer, self.RobotPathLeft_notify, [consumer]).start()
+    #     threading.Timer(self.threading_timer, self.RobotPathLeft_notify, [consumer]).start()
 
     def on_query(self, sender, query):
         gl_query = GLFactory.new_gl_from_gl_string(query)
 
         if gl_query.get_name() == "Collidable":
             ### Timestamp ###
-            temp_Collidable_info = self.ltm.MM.detect_collision
+            temp_Collidable_info = self.ltm.MM.detect_collision()
             temp_Collidable_num = len(temp_Collidable_info)
             temp_Collidable_block = " (pair {robot_id} {robot_id} {time})"
         
-            temp_query = "(Collidable {num}"
+            temp_response = "(Collidable {num}"
         
             for i in range(temp_Collidable_num):
                 temp_robot_id_1 = self.ltm.AMR_IDs.index(temp_Collidable_info[i][0])
                 temp_robot_id_2 = self.ltm.AMR_IDs.index(temp_Collidable_info[i][1])
 
-                temp_query = temp_query + temp_Collidable_block.format(temp_robot_id_1, temp_robot_id_2, temp_Collidable_info[i][2])
+                temp_response = temp_response + temp_Collidable_block.format(temp_robot_id_1, temp_robot_id_2, temp_Collidable_info[i][2])
 
-            temp_query = temp_query + ")"
-            self.send(sender, temp_query.format(temp_Collidable_num))
-        
+            temp_response = temp_response + ")"
+            # self.send(sender, temp_response.format(temp_Collidable_num))
+            return temp_response.format(temp_Collidable_num)
+
+        elif gl_query.get_name() == "RobotPose":
+            temp_robot_num = gl_query.get_expression_size()
+            temp_response = "(RobotPose"
+            temp_robotinfo_block = " (RobotInfo {robot_id} (vertex_id {v_id1} {v_id2}) {load} {goal})"
+
+            for i in range(temp_robot_num):
+                temp_robot_id = gl_query.get_expression(i).as_value()
+                if "TOW" in temp_robot_id:
+                    temp_TOW_info = self.ltm.MM.AMR_TOW[temp_robot_id]
+                    temp_TOW_vertex = temp_TOW_info['vertex']
+                    temp_TOW_load = temp_TOW_info['load']
+                    temp_TOW_path = self.ltm.MM.Path_AMR_TOW[temp_robot_id]
+                    if temp_TOW_path:
+                        temp_TOW_goal = temp_TOW_path[-1]
+                    elif not temp_TOW_path:
+                        temp_TOW_goal = 0
+                    temp_response += temp_robotinfo_block.format(temp_robot_id, temp_TOW_vertex[0], temp_TOW_vertex[1], temp_TOW_load, temp_TOW_goal)
+
+                elif "LIST" in temp_robot_id:
+                    temp_LIST_info = self.ltm.MM.AMR_LIST[temp_robot_id]
+                    temp_LIST_vertex = temp_LIST_info['vertex']
+                    temp_LIST_load = temp_LIST_info['load']
+                    temp_LIST_path = self.ltm.MM.Path_AMR_LIST[temp_robot_id]
+                    if temp_LIST_path:
+                        temp_LIST_goal = temp_LIST_path[-1]
+                    elif not temp_LIST_path:
+                        temp_LIST_goal = 0
+                    temp_response += temp_robotinfo_block.format(temp_robot_id, temp_LIST_vertex[0], temp_LIST_vertex[1], temp_LIST_load, temp_LIST_goal)
+
+            temp_response += ")"
+            return temp_response
+
         
 if __name__ == "__main__":
     agent = MapManagerAgent()
