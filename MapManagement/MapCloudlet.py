@@ -396,7 +396,7 @@ class MapCloudlet:
 
     def convert_pose_to_vertex(self, pose):
         # return two closest vertex from pose, the distance should be less than threshold
-        th = 0.2
+        th = 0.3
         dist_set = []
         id_set = []
         for id, ver_pose in self.static_map.VertexPos.items():

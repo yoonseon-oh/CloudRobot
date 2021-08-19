@@ -41,35 +41,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Research\github_projects\CloudRobot\Test" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Research\github_projects\CloudRobot\Test" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.test_NavCont">
-    <configuration name="MapCloudlet" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CloudRobot" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="/usr/bin/python3.7" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MapManagement" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MapManagement/MapCloudlet.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.test_NavCont_ver2">
     <configuration name="MapMOS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CloudRobot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,13 +133,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_NavCont_ver2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CloudRobot" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test/test_NavCont_ver2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_NavCont_ver2" />
         <item itemvalue="Python.test_NavCont" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.NavigationControl" />
         <item itemvalue="Python.MapMOS" />
-        <item itemvalue="Python.MapCloudlet" />
       </list>
     </recent_temporary>
   </component>
@@ -218,46 +218,59 @@
     <option name="LAST_COMMIT_MESSAGE" value="Add collision_check in MapCloudlet.py" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="497" y="74" key="#xdebugger.evaluate" timestamp="1627536187367">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="-1307" y="446" key="#xdebugger.evaluate" timestamp="1629345115074">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="497" y="74" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1627536187367" />
-    <state width="619" height="172" key="GridCell.Tab.0.bottom" timestamp="1627537216184">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="-1307" y="446" key="#xdebugger.evaluate/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629345115074" />
+    <state x="71" y="79" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1629342597551" />
+    <state width="1899" height="290" key="GridCell.Tab.0.bottom" timestamp="1629352210140">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="619" height="172" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
-    <state width="619" height="172" key="GridCell.Tab.0.center" timestamp="1627537216184">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="290" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629352210140" />
+    <state width="1228" height="171" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1629342598804" />
+    <state width="1899" height="290" key="GridCell.Tab.0.center" timestamp="1629352210140">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="619" height="172" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
-    <state width="619" height="172" key="GridCell.Tab.0.left" timestamp="1627537216184">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="290" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629352210140" />
+    <state width="1228" height="171" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1629342598804" />
+    <state width="1899" height="290" key="GridCell.Tab.0.left" timestamp="1629352210140">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="619" height="172" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
-    <state width="619" height="172" key="GridCell.Tab.0.right" timestamp="1627537216184">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="290" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629352210140" />
+    <state width="1228" height="171" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1629342598804" />
+    <state width="1899" height="290" key="GridCell.Tab.0.right" timestamp="1629352210140">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="619" height="172" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1627537216184" />
-    <state width="1259" height="174" key="GridCell.Tab.1.bottom" timestamp="1627536209430">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="290" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629352210140" />
+    <state width="1228" height="171" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1629342598804" />
+    <state width="1899" height="354" key="GridCell.Tab.1.bottom" timestamp="1629350814037">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1259" height="174" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
-    <state width="1259" height="174" key="GridCell.Tab.1.center" timestamp="1627536209430">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="354" key="GridCell.Tab.1.bottom/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629350814037" />
+    <state width="1228" height="171" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1629342583309" />
+    <state width="1899" height="354" key="GridCell.Tab.1.center" timestamp="1629350814037">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1259" height="174" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
-    <state width="1259" height="174" key="GridCell.Tab.1.left" timestamp="1627536209430">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="354" key="GridCell.Tab.1.center/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629350814037" />
+    <state width="1228" height="171" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1629342583309" />
+    <state width="1899" height="354" key="GridCell.Tab.1.left" timestamp="1629350814037">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1259" height="174" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
-    <state width="1259" height="174" key="GridCell.Tab.1.right" timestamp="1627536209430">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1899" height="354" key="GridCell.Tab.1.left/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629350814037" />
+    <state width="1228" height="171" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1629342583309" />
+    <state width="1899" height="354" key="GridCell.Tab.1.right" timestamp="1629350814037">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1259" height="174" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1627536209430" />
+    <state width="1899" height="354" key="GridCell.Tab.1.right/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1629350814037" />
+    <state width="1228" height="171" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1629342583309" />
     <state x="142" y="0" key="SettingsEditor" timestamp="1627519124853">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1627519124853" />
+    <state x="146" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1628138852536">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="146" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1628138852536" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -274,13 +287,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>176</line>
+          <line>255</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NavigationControl/NavigationControl.py</url>
-          <line>168</line>
+          <line>247</line>
           <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Test/test_NavCont_ver2.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Test/test_NavCont_ver2.py</url>
+          <line>104</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
