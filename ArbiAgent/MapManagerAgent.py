@@ -4,13 +4,13 @@ import time
 sys.path.append("D:\git_ws\CloudRobot") ### TEMP ###
 import threading
 from threading import Condition
-from arbi_agent.arbi_agent.agent import arbi_agent
+from arbi_agent.agent import arbi_agent
 
-from arbi_agent.arbi_agent.agent.arbi_agent import ArbiAgent
-from arbi_agent.arbi_agent.configuration import BrokerType
-from arbi_agent.arbi_agent.ltm.data_source import DataSource
-from arbi_agent.arbi_agent.agent import arbi_agent_excutor
-from arbi_agent.arbi_agent.model import generalized_list_factory as GLFactory
+from arbi_agent.agent.arbi_agent import ArbiAgent
+from arbi_agent.configuration import BrokerType
+from arbi_agent.ltm.data_source import DataSource
+from arbi_agent.agent import arbi_agent_excutor
+from arbi_agent.model import generalized_list_factory as GLFactory
 
 from MapManagement.MapMOS import MapMOS
 from MapManagement.MapCloudlet import MapCloudlet
@@ -171,6 +171,7 @@ class MapManagerAgent(ArbiAgent):
             temp_notify = "(CargoPose {cargo_id} (vertex_id {v_id1} {v_id2}) (on {robot_id} {rack_id}) {status})"
 
             self.notify(consumer, temp_notify.format(temp_Cargo_id, temp_Cargo_vertex[0], temp_Cargo_vertex[1], temp_Cargo_robot_id, temp_Cargo_rack_id, temp_Cargo_status))
+            self.ltm.assert_fact()
 
         threading.Timer(self.threading_timer, self.CargoPose_notify, [consumer]).start()
     
