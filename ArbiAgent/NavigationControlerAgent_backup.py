@@ -23,18 +23,12 @@ class NavigationControlerDataSource(DataSource):
         self.broker = broker_url
         self.connect(self.broker, "", BrokerType.ZERO_MQ)
 
-        self.map_file = ""
+        self.map_file = "../data/map_cloud.txt"
         self.MAP = MapMOS(self.map_file)
-
-        self.sub_temp_ID = self.subscribe("(rule (fact TEMP)) --> (notify (TEMP))")
         
         self.AMR_IDs = ["AMRLIFT0", "AMRLIFT1", "AMRTOW0", "AMRTOW1"]
         
         self.NC = NavigationControl(self.AMR_IDs)
-        
-        self.RobotPathLeft = {}
-        self.RobotPose = []
-        self.Collidable = []
 
 class NavigationControlerAgent(ArbiAgent):
     def __init__(self):
@@ -48,11 +42,16 @@ class NavigationControlerAgent(ArbiAgent):
         self.AMR_LIFT_IDs = ["AMRLIFT0", "AMRLIFT1"]
         self.AMR_TOW_IDs = ["AMRTOW0", "AMRTOW1"]
         self.AMR_IDs = ["AMRLIFT0", "AMRLIFT1", "AMRTOW0", "AMRTOW1"]
+        self.robot_goal = {}
         self.Goal_Status = {}
         
     def on_start(self):
         self.ltm = NavigationControlerDataSource()
         self.ltm.connect("tcp://127.0.0.1:61616", "", BrokerType.ZERO_MQ)
+
+        time.sleep(10)
+
+        self.Goal_check()
     
     def on_data(self, sender, data):
         temp_gl = GLFactory.new_gl_from_gl_string(data)
@@ -97,8 +96,10 @@ class NavigationControlerAgent(ArbiAgent):
                 multi_robot_pose[robot_id] = robot_vertex
                 self.cur_robot_pose[robot_id] = robot_vertex
 
-            self.ltm.NC.update_robot_TM(multi_robot_pose)
-
+            robot_sendTM = self.ltm.NC.update_robot_TM(multi_robot_pose)
+            if robot_sendTM:
+                self.Control_notify(robot_sendTM, self.robot_goal)
+                    
         elif temp_gl.get_name() == "Collidable":
             RobotNavCont_gl = "(RobotNavCont {robot_id} {type} {path})"
             RobotPathPlan_gl = "(RobotPathPlan {robot_id} {goal} {path})"  
@@ -129,45 +130,28 @@ class NavigationControlerAgent(ArbiAgent):
                 self.MultiRobotPath_update(response_gl)
                 self.Control_notify(robot_ids)
 
-    
     def on_request(self, sender, request):
         temp_gl = GLFactory.new_gl_from_gl_string(request)
 
-        if temp_gl.get_name() == "goal":
+        if temp_gl.get_name() == "goal": # from Robot TM
+            ### query of goal Not Assigned ###
+            ### response of goal Not Assigned ###
             goal = {}
-            # RobotNavCont_gl = "(RobotNavCont {robot_id} {type} {path})"
-            # RobotPathPlan_gl = "(RobotPathPlan {robot_id} {goal} {path})"            
-            # path_gl = "(path"
             goal_robot_id = temp_gl.get_expression() ### TEMP ###
             goal_vertex = temp_gl.get_expression() ### TEMP ###
             goal[goal_robot_id] = goal_vertex
+            self.robot_goal[goal_robot_id] = goal_vertex
             robot_id_replan, robot_id_TM = self.ltm.NC.allocate_goal(goal, self.cur_robot_pose)
 
             self.Control_notify(robot_id_TM, goal)
-            # for i in range(len(robot_id_TM)):
-            #     robot_id = robot_id_TM[i]
-            #     robot_path = self.ltm.NC.robotTM[robot_id]
-            #     for j in range(len(robot_path)):
-            #         path_gl += " "
-            #         path_gl += str(robot_path[j])
-            #     path_gl += ")"
 
-            #     if "LIFT" in robot_id:
-            #         self.notify(self.LIFT_TM_name, RobotNavCont_gl.format(robot_id, "path", path_gl))
-            #         if robot_id == temp_robot_id:
-            #             self.notify(self.SMM_name, RobotPathPlan_gl.format(robot_id, goal[robot_id], path_gl))
-            #     elif "TOW" in robot_id:
-            #         self.notify(self.TOW_TM_name, RobotNavCont_gl.format(robot_id, "path", path_gl))
-            #         if robot_id == temp_robot_id:
-            #             self.notify(self.SMM_name, RobotPathPlan_gl.format(robot_id, goal[robot_id, path_gl]))
-            
             if robot_id_replan:
                 response_gl = self.MultiRobotPath_query(robot_id_replan)
                 self.MultiRobotPath_update(response_gl)
         
         while not self.Goal_Status[goal_robot_id]:
-            self.Control_notify(goal_robot_id, goal)
-            time.sleep(1)
+            if self.Goal_Status[goal_robot_id]:
+                break
 
         if self.Goal_Status[goal_robot_id]:
             return [] ### TEMP ###
@@ -190,17 +174,15 @@ class NavigationControlerAgent(ArbiAgent):
                 self.notify(self.TOW_TM_name, RobotNavCont_gl.format(robot_id, "path", path_gl))
                 self.notify(self.SMM_name, RobotPathPlan_gl.format(robot_id, goal[robot_id, path_gl]))
 
-
-
-    def Goal_check(self, robot_id):
-        goal_end_index = self.ltm.NC.Flag_terminate[robot_id]
-
-        if goal_end_index == 0:
-            self.Goal_Status[robot_id] = True
-        else:
-            self.Goal_Status[robot_id] = False
+    def Goal_check(self):
+        for robot_id in self.AMR_IDs:
+            goal_end_index = self.ltm.NC.Flag_terminate[robot_id]
+            if goal_end_index == 0:
+                self.Goal_Status[robot_id] = True
+            else:
+                self.Goal_Status[robot_id] = False
         
-        threading.Timer(1, self.Goal_check, [robot_id]).start()
+        threading.Timer(1, self.Goal_check).start()
 
     def MultiRobotPath_update(self, response_gl):
         multipaths = {}
@@ -216,7 +198,6 @@ class NavigationControlerAgent(ArbiAgent):
             multipaths[robot_id] = path
         self.ltm.NC.get_multipath_plan(multipaths)
             
-
     def MultiRobotPath_query(self, robot_id_replan):
         query_gl = "(MultiRobotPath"
         query_block = " (RobotPath {robot_id} {start} {goal})"
@@ -234,25 +215,3 @@ class NavigationControlerAgent(ArbiAgent):
         
         response = self.query(TM_name, query_gl)
         return response
-
-
-    def LIFT_notify(self, consumer):
-        pass
-
-    def TOW_notify(self, consumer):
-        pass
-
-
-
-        
-    
-        
-        
-
-
-
-
-
-
-
-        
