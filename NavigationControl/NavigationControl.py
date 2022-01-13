@@ -31,8 +31,9 @@ class NavigationControl:
             self.PlanExecutedIdx[id] = [-1, -1] # [i,j] Save the last index of NavPath[i][j] which the robot follows
             self.Flag_terminate[id] = 0
     # New
-    def allocate_goal(self, goals, robot_pose): # execute when the robot TM allocates a goal to each robot
+    def allocate_goal(self, goals, robot_pose): # execute when the Task manager allocates a goal to each robot
         # goals: {robot_id: goal vertex, ....}, robot_pose = {id, [vertex, vertex]}
+        # return Rid_replan, Rid_robotTM
 
         Rid_robotTM = [] # the list of robot ids that has an updated robotTM
         Rid_replan = [] # the list of robot ids for replanning
@@ -48,13 +49,13 @@ class NavigationControl:
         if flag_tow: check_ids.extend(self.AMR_TOW_IDs)
         if flag_lift: check_ids.extend(self.AMR_LIFT_IDs)
 
-        for rid in check_ids:
+        for rid in check_ids:# Search for robots that need to be replanned or gets a new robotTM
             if self.robotGoal[rid] != -1: # the robot has a navigation job => initialize
                 Rid_replan.append(rid) # require replanning
                 if rid in goals.keys(): # got new job
                     self.robotGoal[rid] = goals[rid]
 
-                if self.robotTM[rid] != []: # the robot is executing the plan # TODO: test
+                if self.robotTM[rid] != []: # If the robot is executing the plan, stop the robot after it arrives the current goal vertex. 
                     self.robotTM[rid] = [self.robotTM[rid][0]]
                     Rid_robotTM.append(rid)
                     self.robotStart[rid] = self.robotTM[rid][0]
@@ -76,8 +77,10 @@ class NavigationControl:
 
         return Rid_replan, Rid_robotTM
 
-    def get_multipath_plan(self, multipaths): # multipath: MultiPath type
+    def get_multipath_plan(self, multipaths): # Executed when a MAPF (Multi-agent path finder) module is executed.
         # initialize PlanExecutedIdx
+        # Each path is divided into several parts, if given paths shares the same vertex.
+        # We also return the start condition of each part of paths. If the robot with ID $rid2$ arrives $vertex$, it can execute the next plan.
         for id in multipaths.keys():
             self.robotTM[id] = []  # a sequence of vertices
             self.robotTM_set[id] = []  # [robotTM, robotTM, robotTM, ...]
